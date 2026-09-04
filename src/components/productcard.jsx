@@ -50,12 +50,12 @@ export const ProductCard = ({ product, index }) => {
         )}
       </div>
 
-      {/* Image Container with Zoom Physics */}
+      {/* Image Container configured for Local Bottle Assets */}
       <div className="relative w-full h-52 my-2 flex items-center justify-center overflow-hidden rounded-2xl bg-slate-900/50 border border-white/5">
         <motion.img 
           src={product.image} 
           alt={product.name}
-          className="h-44 w-full object-cover rounded-xl"
+          className="h-44 w-full object-contain p-2 rounded-xl"
           whileHover={{ scale: 1.1, rotate: 1 }}
           transition={{ type: "spring", stiffness: 200, damping: 10 }}
         />
