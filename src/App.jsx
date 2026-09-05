@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { PRODUCTS, CATEGORIES } from './data/products';
-import { ProductCard } from './components/ProductCard';
+import { ProductCard } from './components/Productcard';
 import { InquiryDrawer } from './components/InquiryDrawer';
 
 export default function App() {
