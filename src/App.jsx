@@ -34,17 +34,17 @@ export default function App() {
             </div>
             <div>
               <h1 className="text-lg font-black tracking-wider text-white">
-                RAHUM <span className="text-amber-400">ENTERPRISES</span>
+                Online<span className="text-amber-400">Cashier</span>
               </h1>
               <p className="text-[11px] text-slate-400 font-medium">Githurai 45 • Wholesale & Retail Drinks</p>
             </div>
           </div>
           <a 
-            href="tel:0729764026" 
+            href="tel:0734000000" 
             className="px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs font-bold text-amber-400 hover:bg-amber-500/20 transition-all flex items-center gap-2"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            0729 764 026
+            0734 000 000
           </a>
         </div>
       </header>
