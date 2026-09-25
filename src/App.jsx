@@ -3,10 +3,16 @@ import { motion } from 'framer-motion';
 import { PRODUCTS, CATEGORIES } from './data/products';
 import { ProductCard } from './components/Productcard';
 import { InquiryDrawer } from './components/InquiryDrawer';
+import { CartDrawer } from './components/CartDrawer';
+import { useCartStore } from './store/useCartStore';
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const getTotalCount = useCartStore((state) => state.getTotalCount);
+  const totalCount = getTotalCount();
 
   const filteredProducts = PRODUCTS.filter((p) => {
     const matchesCategory = selectedCategory === 'All' || p.category === selectedCategory;
@@ -34,18 +40,34 @@ export default function App() {
             </div>
             <div>
               <h1 className="text-lg font-black tracking-wider text-white">
-                Online<span className="text-amber-400">Cashier</span>
+                ONLINE<span className="text-amber-400">CASHIER</span>
               </h1>
-              <p className="text-[11px] text-slate-400 font-medium">Githurai 45 • Wholesale & Retail Drinks</p>
+              <p className="text-[11px] text-slate-400 font-medium">Wholesale & Retail Drinks</p>
             </div>
           </div>
-          <a 
-            href="tel:0734000000" 
-            className="px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs font-bold text-amber-400 hover:bg-amber-500/20 transition-all flex items-center gap-2"
-          >
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            0734 000 000
-          </a>
+
+          <div className="flex items-center gap-3">
+            {/* Header Cart Button */}
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="relative px-3.5 py-2 rounded-xl bg-slate-800/80 border border-white/10 text-xs font-bold text-slate-200 hover:bg-slate-800 transition-all flex items-center gap-2"
+            >
+              <span>🛒 Cart</span>
+              {totalCount > 0 && (
+                <span className="bg-amber-400 text-slate-950 px-2 py-0.5 rounded-full text-[10px] font-black">
+                  {totalCount}
+                </span>
+              )}
+            </button>
+
+            <a 
+              href="tel:0700243675" 
+              className="px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs font-bold text-amber-400 hover:bg-amber-500/20 transition-all flex items-center gap-2"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              0700 243 675
+            </a>
+          </div>
         </div>
       </header>
 
@@ -91,7 +113,25 @@ export default function App() {
         ))}
       </main>
 
+      {/* Floating Cart Button (Appears when items exist) */}
+      {totalCount > 0 && (
+        <motion.button
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          onClick={() => setIsCartOpen(true)}
+          className="fixed bottom-6 right-6 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black px-5 py-3.5 rounded-full shadow-2xl shadow-amber-500/40 flex items-center gap-3 z-40 border border-amber-300/40 hover:scale-105 transition-transform"
+        >
+          <span className="text-base">🛒</span>
+          <span className="text-xs uppercase tracking-wider">Edit Order</span>
+          <span className="bg-slate-950 text-amber-400 text-xs px-2.5 py-0.5 rounded-full font-bold">
+            {totalCount}
+          </span>
+        </motion.button>
+      )}
+
+      {/* Drawers */}
       <InquiryDrawer />
+      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </div>
   );
 }
